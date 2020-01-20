@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Contoso University</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @RenderSection("CSS", required: false)
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column min-vh-100">
+    <a id="scrollTopButton"></a>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ContosoUniversity</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Contoso University</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,15 +24,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"> Home</a>
                         </li>
-                        <li class="nav-item">
+                        <partial name="_MenuPartial" />
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                        </li>*@
+                        <li class="nav-item dropdown">
+                            <a titile="AboutDropdown" class="nav-link dropdown-toggle" href="#" id="AboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-info-circle"></i> About Us
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="FacultyDropdown">
+                                <a class="dropdown-item" asp-controller="Home" asp-action="About"><i class="fas fa-info-circle"></i> Students</a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="Contact"><i class="far fa-envelope-open"></i> Departments</a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="RequestInfo"><i class="fas fa-question-circle"></i> Contact Us</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    @RenderSection("Carousel",required:false)
+    @RenderSection("Carousel", required: false)
     <main role="main" class="pb-3">
         <div class="container mt-3">
             @RenderBody()
@@ -93,10 +106,10 @@
         <div id="sub-footer" class="py-3">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-7">
                         <span>&copy; @DateTime.Now.Year - Contoso University</span>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-5">
                         <ul class="social-network float-right">
                             <li><a href="#" data-placement="top" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                             <li><a href="#" data-placement="top" title="Twitter"><i class="fab fa-twitter"></i></a></li>

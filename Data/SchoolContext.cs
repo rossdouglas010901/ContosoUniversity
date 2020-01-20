@@ -21,7 +21,7 @@ namespace ContosoUniversity.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseAssignment> CourseAssignments { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<OfficeAssigment> OfficeAssigments { get; set; }
+        public DbSet<OfficeAssignment> OfficeAssigments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,7 +30,7 @@ namespace ContosoUniversity.Data
             modelBuilder.Entity<Course>().ToTable("Course");
             modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignment");
             modelBuilder.Entity<Department>().ToTable("Department");
-            modelBuilder.Entity<OfficeAssigment>().ToTable("OfficeAssignment");
+            modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignment");
 
             modelBuilder.Entity<CourseAssignment>()
                 .HasKey(c => new { c.CourseID, c.InstructorID });

@@ -2,10 +2,10 @@
 
 namespace ContosoUniversity.Models
 {
-    public class OfficeAssigment
+    public class OfficeAssignment
     {
         [Key]
-        public int InstrutorID { get; set; }
+        public int InstructorID { get; set; }
         [Display(Name = "Office Space Location")]
         [StringLength(60)]
         public string Location { get; set; }
