@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
+using ContosoUniversity.Models.SchoolViewModels;
 
 namespace ContosoUniversity.Controllers
 {
@@ -149,5 +150,26 @@ namespace ContosoUniversity.Controllers
         {
             return _context.Students.Any(e => e.ID == id);
         }
+
+        public async Task<IActionResult>Stats()
+        {
+            /*
+             * USE ContosoUniversity
+             *   SELECT COUNT(*) as StdentCount, EnrollDate
+	         *   FROM Person
+	         *   WHERE Discriminator = 'Student'
+	         *   GROUP BY EnrollDate
+             */
+            IQueryable<EnrollmentDateGroup> data =
+                from student in _context.Students
+                group student by student.EnrollDate into dateGroup
+                select new EnrollmentDateGroup
+                {
+                    EnrollmentDate = dateGroup.Key,
+                    StudentCount = dateGroup.Count()
+                };
+            return View(await data.ToListAsync());
+        }
+
     }
 }
