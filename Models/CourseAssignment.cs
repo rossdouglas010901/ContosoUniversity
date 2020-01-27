@@ -5,5 +5,7 @@
         public int InstructorID { get; set; }
         public int CourseID { get; set; }
         public virtual Instructor Instructor { get; set; }
+
+        public virtual Course Course { get; set; }
     }
 }
