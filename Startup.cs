@@ -17,6 +17,7 @@ namespace ContosoUniversity
 {
     public class Startup
     {
+        private string _adminUserPW = null;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,14 +36,23 @@ namespace ContosoUniversity
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddControllersWithViews();
+            //services.AddRazorPages();
+
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SchoolContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, //SchoolContext context, 
+            IServiceProvider service)
         {
             if (env.IsDevelopment())
             {
@@ -55,6 +65,9 @@ namespace ContosoUniversity
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -63,7 +76,9 @@ namespace ContosoUniversity
             app.UseAuthentication();
             app.UseAuthorization();
 
-            DbInitializer.Initialize(context);
+            //DbInitializer.Initialize(context);
+            //_adminUserPW = Configuration["adminUserPW"];
+            //IdentityDbInitilizer.Initilize(service, _adminUserPW).Wait();
 
             app.UseEndpoints(endpoints =>
             {

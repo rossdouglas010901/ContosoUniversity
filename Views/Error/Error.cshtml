@@ -1,0 +1,35 @@
+﻿@{
+
+    if (Model == 404)
+    {
+        ViewData["Title"] = "Page Not Found";
+        <h2 class="mt-2">Page Not found: @Model</h2>
+        <h3 class="text-danger">
+            Sorry this page does not exist, It may have been deleted in the past or moved
+        </h3>
+        <p>
+            You can return to the <a asp-action="index" asp-controller="Home">Home Page</a>.
+        </p>
+        <div class="text-center">
+            <div class="fas fa-exclamation-triangle text-danger" style="font-size:10rem;"></div>
+        </div>
+    }
+    else if (Model == 500)
+    {
+        ViewData["Title"] = "Internal Server Error";
+        <h2 class="mt-2">Page Not found: @Model</h2>
+        <h3 class="text-danger">
+            Sorry, an internal server error has occured
+        </h3>
+        <p>
+            You can return to the <a asp-action="index" asp-controller="Home">Home Page</a>.
+        </p>
+        <div class="text-center">
+            <div class="fas fa-fire text-danger" style="font-size:10rem;"></div>
+        </div>
+    }
+
+}
+<div class="text-center my-2">
+    <a asp-action="index" asp-controller="Home" class="btn btn-primary">Homepage</a>
+</div>
