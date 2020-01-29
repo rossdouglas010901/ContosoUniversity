@@ -1,0 +1,26 @@
+﻿@* Students Dropdown Menu *@
+
+<li class="nav-item dropdown">
+    <a titile="Students" class="nav-link dropdown-toggle" href="#" id="StudentDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-address-book"></i> Students
+    </a>
+    <div class="dropdown-menu" aria-labelledby="StudentDropdown">
+        <a class="dropdown-item" asp-controller="Student" asp-action="Index"><i class="fas fa-users"></i> Students</a>
+        <a class="dropdown-item" asp-controller="Course" asp-action="Index"><i class="fas fa-book"></i> Courses</a>
+        <div class="dropdown-divider"></div>"
+        <a class="dropdown-item" asp-controller="Enrollment" asp-action="Index"><i class="fas fa-tasks"></i> Enrollments</a>
+        <a class="dropdown-item" asp-controller="Student" asp-action="Stats"><i class="fas fa-chart-bar"></i> Stats Report</a>
+    </div>
+</li>
+
+@* Faculty Dropdown Menu *@
+
+<li class="nav-item dropdown">
+    <a titile="Faculty" class="nav-link dropdown-toggle" href="#" id="FacultyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="far fa-building"></i> Faculty
+    </a>
+    <div class="dropdown-menu" aria-labelledby="FacultyDropdown">
+        <a class="dropdown-item" asp-controller="Instructor" asp-action="Index"><i class="fas fa-chalkboard-teacher"></i> Students</a>
+        <a class="dropdown-item" asp-controller="Department" asp-action="Index"><i class="fas fa-sitemap"></i> Departments</a>
+    </div>
+</li>

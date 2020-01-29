@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ContosoUniversity.Models.Course>
+@{ 
+    ViewData["Title"] = "Our Courses";
+}
+<h1 class="mt-2">
+    Our Courses
+</h1>
+<div class="my-3">
+    @{ 
+        int numItems = Model.Count();
+        if (numItems > 0)
+        {
+            <h4>Total Courses</h4>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4 my-2">
+                        <div class="card bg-light">
+                            <div class="card-Body">
+                                <h3 class="card-title text-white bg-dark">@item.CourseIDTitle</h3>
+                                <p class="card-subtitle">@item.Credits  Credits</p>
+                                <p class="card-text">Description Would be here</p>
+                                <a asp-action="Details" asp-route-id="@item.CourseID" class="btn btn-secondary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>

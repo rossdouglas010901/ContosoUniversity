@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ContosoUniversity.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class CourseController : Controller
     {
         private readonly SchoolContext _context;
@@ -27,6 +29,7 @@ namespace ContosoUniversity.Controllers
         }
 
         // GET: Course/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -155,6 +158,26 @@ namespace ContosoUniversity.Controllers
         private bool CourseExists(int id)
         {
             return _context.Courses.Any(e => e.CourseID == id);
+        }
+
+        //RCampbell: Custom Listing method for guest Users
+        [AllowAnonymous]
+        public async Task<IActionResult> Listing(int? selectedDepartmen)
+        {
+            IQueryable<Course> courses = GetCourses(selectedDepartmen);
+            return View(await courses.ToListAsync());
+        }
+
+        private IQueryable<Course> GetCourses(int? selectedDepartmen)
+        {
+            var departments = _context.Departments.OrderBy(d => d.Name).ToList();
+            ViewData["SelectedDepartment"] = new SelectList(departments, "DepartmentID", "Name", selectedDepartmen);
+            int departmentId = selectedDepartmen.GetValueOrDefault();
+            IQueryable<Course> courses = _context.Courses
+                .Where(c => !selectedDepartmen.HasValue || c.DepartmentID == departmentId)
+                .OrderBy(d => d.CourseID)
+                .Include(d => d.Department);
+            return courses;
         }
     }
 }
